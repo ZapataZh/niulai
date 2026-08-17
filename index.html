@@ -88,6 +88,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .cal-cell:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
 .cal-cell.trading{border-top:3px solid var(--accent)}
 .cal-cell.weekend{background:#fafafa;cursor:default;opacity:.6}
+.cal-cell.upcoming{background:#fafafa;cursor:default;opacity:.55;min-height:100px}
+.cal-cell.upcoming:hover{transform:none;box-shadow:none}
 .cal-date{font-size:14px;font-weight:700;color:var(--accent)}
 .cal-date span{display:block;font-size:10px;color:var(--text3);font-weight:400;margin-top:2px}
 .cal-idx{font-size:18px;font-weight:800;margin-top:8px}
@@ -101,6 +103,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 .week-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px}
 .week-stat .ws-label{font-size:11px;color:rgba(255,255,255,.6)}
 .week-stat .ws-value{font-size:20px;font-weight:700;margin-top:2px}
+.week-label{font-size:15px;font-weight:700;color:var(--accent);margin:8px 0 12px;padding-left:4px;border-left:3px solid var(--gold)}
 .legend{display:flex;gap:16px;font-size:12px;color:var(--text2);margin-bottom:16px;flex-wrap:wrap}
 .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
 </style>
@@ -110,7 +113,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
   <div class="nav-inner">
     <div class="nav-logo">A股盘中报告 <span>|</span> 日历回看</div>
     <div style="display:flex;align-items:center;gap:14px">
-      <span style="color:rgba(255,255,255,.6);font-size:12px">2026年8月第2周</span>
+      <span style="color:rgba(255,255,255,.6);font-size:12px">2026年8月第3周</span>
       <a href="weekly_20260810.html" style="color:#fff;background:var(--gold);padding:5px 14px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:700;color:#1a1a2e">周度总结</a>
     </div>
   </div>
@@ -118,7 +121,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
 <div class="container">
   <div class="week-summary">
     <h2>周度概览 · 2026.08.10 - 08.14</h2>
-    
+
     <div class="week-stats">
       <div class="week-stat"><div class="ws-label">沪指周涨跌</div><div class="ws-value green">-0.33%</div></div>
       <div class="week-stat"><div class="ws-label">周收盘</div><div class="ws-value">3927.18</div></div>
@@ -141,6 +144,51 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
     <span style="color:var(--text3)">● 休市</span>
     <span style="margin-left:auto">点击日期卡片查看收盘复盘，点击下方时段链接查看对应报告</span>
   </div>
+  <div class="week-label">2026年8月第3周（08-17 ~ 08-23）</div>
+  <div class="cal-grid">
+            <div class="cal-cell trading" onclick="window.location.href='2026-08-17/report_1510.html'">
+              <div class="cal-date">08-17<span>周一</span></div>
+              <div class="cal-idx red">3982.65</div>
+              <div class="cal-chg red">+1.41%</div>
+              <div class="cal-vol">2.39万亿</div>
+              <div class="cal-links">
+                <a href="2026-08-17/report_0930.html">09:30</a>
+                <a href="2026-08-17/report_1000.html">10:00</a>
+                <a href="2026-08-17/report_1430.html">14:30</a>
+                <a href="2026-08-17/report_1510.html">15:10</a>
+              </div>
+            </div>
+            <div class="cal-cell upcoming">
+              <div class="cal-date">08-18<span>周二</span></div>
+              <div class="cal-idx" style="color:#ccc">待更新</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div>
+            <div class="cal-cell upcoming">
+              <div class="cal-date">08-19<span>周三</span></div>
+              <div class="cal-idx" style="color:#ccc">待更新</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div>
+            <div class="cal-cell upcoming">
+              <div class="cal-date">08-20<span>周四</span></div>
+              <div class="cal-idx" style="color:#ccc">待更新</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div>
+            <div class="cal-cell upcoming">
+              <div class="cal-date">08-21<span>周五</span></div>
+              <div class="cal-idx" style="color:#ccc">待更新</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div>
+            <div class="cal-cell weekend">
+              <div class="cal-date">08-22<span>周六</span></div>
+              <div class="cal-idx" style="color:#ccc">休市</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div>
+            <div class="cal-cell weekend">
+              <div class="cal-date">08-23<span>周日</span></div>
+              <div class="cal-idx" style="color:#ccc">休市</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div></div>
+  <div class="week-label">2026年8月第2周（08-10 ~ 08-16）</div>
   <div class="cal-grid">
             <div class="cal-cell trading" onclick="window.location.href='2026-08-10/report_1510.html'">
               <div class="cal-date">08-10<span>周一</span></div>
@@ -225,8 +273,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hira
     <strong>风险提示：</strong>*本系统所有报告仅为行情信息整理与复盘参考，不构成任何投资建议。股市有风险，投资需谨慎。
   </div>
   <div class="footer">
-    A股盘中报告系统 · 日历回看功能 · 测试周期：2026年8月10日-14日<br>
-    数据来源：同花顺、东方财富Choice、交易所公开数据 · 纯静态HTML，可离线浏览
+    A股盘中报告系统 · 日历回看功能 · 数据周期：2026年8月10日起<br>
+    数据来源：Wind万得、同花顺、东方财富Choice、交易所公开数据 · 纯静态HTML，可离线浏览
   </div>
 </div>
 </body>
