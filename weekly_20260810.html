@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股周度总结 | 2026.08.10-08.14</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#e63946;--red-light:#fff1f0;--red-bg:#ffeaea;
+  --green:#00a870;--green-light:#f0fff5;--green-bg:#e6f9ef;
+  --bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text2:#555;--text3:#999;
+  --border:#e8e8ec;--accent:#1a3a5c;--gold:#d4a017;--blue:#4a90d9;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,58,92,.97);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.nav-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.nav-logo{color:#fff;font-weight:700;font-size:15px;letter-spacing:.5px;white-space:nowrap}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:4px}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:12px;padding:5px 10px;border-radius:4px;transition:all .2s;white-space:nowrap}
+.nav-links a:hover{background:rgba(255,255,255,.12);color:#fff}
+.nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:12px;padding:5px 12px;border-radius:4px;background:rgba(255,255,255,.1);transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.2);color:#fff}
+.container{max-width:1000px;margin:0 auto;padding:76px 20px 40px}
+.hero{background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:12px;padding:36px 32px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-50px;top:-50px;width:200px;height:200px;border-radius:50%;background:rgba(212,160,23,.1)}
+.hero-badge{display:inline-block;background:var(--gold);color:#1a1a2e;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:12px}
+.hero-title{font-size:28px;font-weight:800;margin-bottom:8px;letter-spacing:1px}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.hero-tagline{font-size:15px;color:rgba(255,255,255,.9);max-width:700px;line-height:1.8}
+.hero-stats{display:flex;gap:28px;margin-top:24px;flex-wrap:wrap}
+.hero-stat .label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.hero-stat .value{font-size:24px;font-weight:700}
+.red{color:var(--red)}.green{color:var(--green)}.flat{color:var(--text3)}
+.bg-red{background:var(--red-light)}.bg-green{background:var(--green-light)}
+.card{background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:26px 28px;margin-bottom:20px;border:1px solid var(--border)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--bg)}
+.card-num{background:var(--accent);color:#fff;width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.card-title{font-size:19px;font-weight:700;color:var(--accent)}
+
+/* 周度指数表 */
+.week-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+.week-table th{background:var(--accent);color:#fff;padding:10px 8px;font-size:12px;font-weight:600;text-align:center}
+.week-table td{padding:9px 8px;text-align:center;border-bottom:1px solid var(--border);font-size:13px}
+.week-table tr:hover{background:var(--bg)}
+.week-table .day-label{font-weight:700;color:var(--accent);text-align:left;padding-left:14px}
+
+/* 量能趋势图（纯CSS） */
+.vol-chart{display:flex;align-items:flex-end;gap:12px;height:160px;padding:10px 0;border-bottom:2px solid var(--border);margin-bottom:8px}
+.vol-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+.vol-fill{width:100%;border-radius:5px 5px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;color:#fff;font-size:11px;font-weight:700;min-height:20px;transition:height .6s}
+.vol-label{font-size:11px;color:var(--text3);margin-top:6px;text-align:center}
+
+/* 情绪趋势 */
+.sentiment-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sentiment-day{width:70px;font-size:12px;font-weight:600;color:var(--accent);flex-shrink:0}
+.sentiment-bar{flex:1;height:24px;border-radius:4px;position:relative;background:var(--bg);overflow:hidden}
+.sentiment-up{height:100%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;min-width:30px}
+.sentiment-down{height:100%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;min-width:30px}
+.sentiment-meta{font-size:11px;color:var(--text3);width:120px;text-align:right;flex-shrink:0}
+
+/* 板块轮动时间线 */
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--red),var(--gold),var(--green))}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{content:"";position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 2px var(--accent)}
+.tl-day{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.tl-content{font-size:13px;color:var(--text2);line-height:1.7}
+.tl-tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:8px;font-weight:600;margin-right:4px}
+.tag-red{background:var(--red);color:#fff}.tag-green{background:var(--green);color:#fff}.tag-blue{background:var(--blue);color:#fff}.tag-gold{background:var(--gold);color:#1a1a2e}
+
+/* 双栏 */
+.dual-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.dual-col{grid-template-columns:1fr}}
+.col-box{background:var(--bg);border-radius:8px;padding:16px}
+.col-box h4{font-size:14px;margin-bottom:10px;color:var(--accent)}
+.col-box ul{list-style:none;padding:0}
+.col-box li{font-size:13px;color:var(--text2);padding:4px 0 4px 14px;position:relative;line-height:1.6}
+.col-box li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.col-box.up li::before{background:var(--red)}
+.col-box.down li::before{background:var(--green)}
+
+/* 北向资金周度 */
+.north-week{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
+@media(max-width:600px){.north-week{grid-template-columns:repeat(3,1fr)}}
+.north-day{text-align:center;padding:12px 6px;border-radius:8px;border:1px solid var(--border)}
+.north-day .nd-label{font-size:11px;color:var(--text3)}
+.north-day .nd-value{font-size:16px;font-weight:700;margin:4px 0}
+.north-day .nd-vol{font-size:10px;color:var(--text3)}
+
+/* 关键事件 */
+.event-list{border-left:3px solid var(--gold);padding-left:16px}
+.event-item{margin-bottom:14px}
+.event-date{font-size:12px;font-weight:700;color:var(--gold)}
+.event-text{font-size:13px;color:var(--text2);margin-top:2px}
+
+/* 展望 */
+.outlook-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.outlook-item{background:var(--bg);border-radius:8px;padding:14px;border-left:3px solid var(--accent)}
+.outlook-item h5{font-size:13px;color:var(--accent);margin-bottom:6px}
+.outlook-item p{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* 总结 */
+.conclusion{background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:10px;padding:28px 30px;margin-bottom:16px}
+.conclusion h3{font-size:17px;margin-bottom:12px;color:var(--gold)}
+.conclusion p{font-size:14px;line-height:1.9;color:rgba(255,255,255,.92)}
+.risk-notice{background:#fff8e6;border:1px solid #ffe0a3;border-radius:8px;padding:16px 20px;font-size:12px;color:#8a6d00;line-height:1.7}
+.risk-notice strong{color:#b8860b}
+.footer{text-align:center;padding:24px 20px;color:var(--text3);font-size:11px;border-top:1px solid var(--border);margin-top:16px}
+.data-source{font-size:10px;color:var(--text3);margin-top:10px;text-align:right}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">A股周度总结 <span>|</span> 2026.08.10-14</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="nav-links">
+        <a href="#sec1">指数</a>
+        <a href="#sec2">量能</a>
+        <a href="#sec3">情绪</a>
+        <a href="#sec4">板块</a>
+        <a href="#sec5">北向</a>
+        <a href="#sec6">事件</a>
+        <a href="#sec7">展望</a>
+      </div>
+      <a href="index.html" class="nav-back">← 日历</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <span class="hero-badge">WEEKLY REPORT</span>
+    <h1 class="hero-title">A股周度总结</h1>
+    <div class="hero-sub">2026年8月10日 - 8月14日（第33周）· 5个交易日</div>
+    <p class="hero-tagline">本周A股呈"先扬后抑、缩量企稳"格局。周一沪指五连阳冲高3966点，周二连阳终结回调，周三缩量普涨反弹，周四放量跳水情绪冰点，周五缩量企稳创业板领涨。全周成交维持2万亿以上，AI算力产业链与医药CRO成为结构性亮点。</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="label">沪指周涨跌</div><div class="value green">-0.33%</div></div>
+      <div class="hero-stat"><div class="label">周收盘</div><div class="value">3927.18</div></div>
+      <div class="hero-stat"><div class="label">周最高/最低</div><div class="value">3967 / 3924</div></div>
+      <div class="hero-stat"><div class="label">周均成交</div><div class="value" style="color:var(--gold)">2.34万亿</div></div>
+      <div class="hero-stat"><div class="label">涨/跌天数</div><div class="value"><span class="red">3涨</span> / <span class="green">2跌</span></div></div>
+    </div>
+  </div>
+
+  <!-- 1. 周度指数表现 -->
+  <div class="card" id="sec1">
+    <div class="card-header"><div class="card-num">1</div><div class="card-title">周度指数表现</div></div>
+    <table class="week-table">
+      <thead>
+        <tr><th>日期</th><th>上证指数</th><th>涨跌幅</th><th>深证成指</th><th>涨跌幅</th><th>创业板指</th><th>涨跌幅</th><th>科创50</th><th>涨跌幅</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="day-label">08-10 周一</td><td>3966.59</td><td class="red">+0.67%</td><td>14316.96</td><td class="red">+0.04%</td><td>3570.18</td><td class="green">-0.73%</td><td>—</td><td>—</td></tr>
+        <tr><td class="day-label">08-11 周二</td><td>3934.09</td><td class="green">-0.82%</td><td>14259.44</td><td class="green">-0.40%</td><td>3549.16</td><td class="red">+0.34%</td><td>—</td><td class="green">-1.63%</td></tr>
+        <tr><td class="day-label">08-12 周三</td><td>3946.68</td><td class="red">+0.32%</td><td>14414.43</td><td class="red">+1.09%</td><td>3602.08</td><td class="red">+1.49%</td><td>1736.99</td><td class="red">+1.61%</td></tr>
+        <tr><td class="day-label">08-13 周四</td><td>3926.96</td><td class="green">-0.50%</td><td>14289.44</td><td class="green">-0.87%</td><td>3586.04</td><td class="green">-0.45%</td><td>1717.75</td><td class="green">-1.11%</td></tr>
+        <tr><td class="day-label">08-14 周五</td><td>3927.18</td><td class="red">+0.01%</td><td>14354.31</td><td class="red">+0.45%</td><td>3626.30</td><td class="red">+1.12%</td><td>1717.68</td><td class="flat">0.00%</td></tr>
+        <tr style="background:var(--bg);font-weight:700">
+          <td class="day-label">周度累计</td>
+          <td>3927.18</td><td class="green">-0.33%</td>
+          <td>14354.31</td><td class="red">+0.27%</td>
+          <td>3626.30</td><td class="red">+0.83%</td>
+          <td>1717.68</td><td class="green">-1.11%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="font-size:13px;color:var(--text2);background:var(--bg);padding:10px 14px;border-radius:6px">
+      <strong>周度特征：</strong>创业板指以+0.83%领涨主要指数，科创50以-1.11%垫底。沪指全周在3924-3967区间震荡，周线收阴但跌幅有限，显示3900点整数关口支撑较强。深强沪弱格局在周后半段尤为明显。
+    </div>
+  </div>
+
+  <!-- 2. 周度量能分析 -->
+  <div class="card" id="sec2">
+    <div class="card-header"><div class="card-num">2</div><div class="card-title">周度量能分析</div></div>
+    <div class="vol-chart">
+      <div class="vol-bar"><div class="vol-fill" style="height:88%;background:var(--red)">2.52万亿</div><div class="vol-label">08-10 周一</div></div>
+      <div class="vol-bar"><div class="vol-fill" style="height:76%;background:var(--green)">2.32万亿</div><div class="vol-label">08-11 周二</div></div>
+      <div class="vol-bar"><div class="vol-fill" style="height:66%;background:var(--red)">2.15万亿</div><div class="vol-label">08-12 周三</div></div>
+      <div class="vol-bar"><div class="vol-fill" style="height:92%;background:var(--green)">2.55万亿</div><div class="vol-label">08-13 周四</div></div>
+      <div class="vol-bar"><div class="vol-fill" style="height:65%;background:var(--red)">2.14万亿</div><div class="vol-label">08-14 周五</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px">
+      <div style="background:var(--bg);border-radius:8px;padding:14px"><div style="font-size:12px;color:var(--text3)">周总成交</div><div style="font-size:22px;font-weight:800;color:var(--accent)">11.68万亿</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:14px"><div style="font-size:12px;color:var(--text3)">日均成交</div><div style="font-size:22px;font-weight:800;color:var(--gold)">2.34万亿</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:14px"><div style="font-size:12px;color:var(--text3)">最大量能日</div><div style="font-size:22px;font-weight:800;color:var(--green)">08-13 (2.55万亿)</div></div>
+      <div style="background:var(--bg);border-radius:8px;padding:14px"><div style="font-size:12px;color:var(--text3)">最小量能日</div><div style="font-size:22px;font-weight:800;color:var(--red)">08-14 (2.14万亿)</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);margin-top:14px;line-height:1.8">
+      <strong>量能解读：</strong>本周量能呈"缩-放-缩"波动。周一2.52万亿高位运行，周二周三连续缩量至2.15万亿，周四放量至2.55万亿（放量下跌，恐慌盘涌出），周五再度缩量至2.14万亿企稳。全周始终维持2万亿以上，连续第296个交易日破万亿，显示市场流动性充裕但增量资金入场意愿不足，存量博弈特征明显。
+    </div>
+  </div>
+
+  <!-- 3. 周度情绪回顾 -->
+  <div class="card" id="sec3">
+    <div class="card-header"><div class="card-num">3</div><div class="card-title">周度情绪回顾</div></div>
+    <div class="sentiment-row">
+      <div class="sentiment-day">08-10 周一</div>
+      <div class="sentiment-bar"><div class="sentiment-up" style="width:74%">涨4000+</div><div class="sentiment-down" style="width:26%">跌1400</div></div>
+      <div class="sentiment-meta">涨停~85 · 情绪偏热</div>
+    </div>
+    <div class="sentiment-row">
+      <div class="sentiment-day">08-11 周二</div>
+      <div class="sentiment-bar"><div class="sentiment-up" style="width:30%">涨1615</div><div class="sentiment-down" style="width:70%">跌3777</div></div>
+      <div class="sentiment-meta">涨停~60 · 情绪降温</div>
+    </div>
+    <div class="sentiment-row">
+      <div class="sentiment-day">08-12 周三</div>
+      <div class="sentiment-bar"><div class="sentiment-up" style="width:76%">涨4129</div><div class="sentiment-down" style="width:24%">跌1280</div></div>
+      <div class="sentiment-meta">涨停91 · 封板率89% · 过热</div>
+    </div>
+    <div class="sentiment-row">
+      <div class="sentiment-day">08-13 周四</div>
+      <div class="sentiment-bar"><div class="sentiment-up" style="width:21%">涨1142</div><div class="sentiment-down" style="width:79%">跌4317</div></div>
+      <div class="sentiment-meta">涨停62 · 炸板率37% · 冰点</div>
+    </div>
+    <div class="sentiment-row">
+      <div class="sentiment-day">08-14 周五</div>
+      <div class="sentiment-bar"><div class="sentiment-up" style="width:44%">涨2400</div><div class="sentiment-down" style="width:56%">跌2970</div></div>
+      <div class="sentiment-meta">涨停64 · 炸板率17% · 修复</div>
+    </div>
+    <div style="margin-top:16px;background:var(--bg);border-radius:8px;padding:14px 16px">
+      <strong style="font-size:13px;color:var(--accent)">情绪周期演变：</strong>
+      <span style="font-size:13px;color:var(--text2)">
+        周一<span class="tag tag-red" style="margin:0 4px">偏热</span>五连阳高潮 → 周二<span class="tag tag-gold" style="margin:0 4px">降温</span>连阳终结 → 周三<span class="tag tag-red" style="margin:0 4px">过热</span>普涨涨停91家 → 周四<span class="tag tag-green" style="margin:0 4px">冰点</span>放量下跌炸板率37% → 周五<span class="tag tag-blue" style="margin:0 4px">修复</span>缩量企稳。
+        全周完成一轮完整的"高潮→退潮→冰点→修复"情绪周期，节奏切换极快。
+      </span>
+    </div>
+  </div>
+
+  <!-- 4. 周度板块轮动 -->
+  <div class="card" id="sec4">
+    <div class="card-header"><div class="card-num">4</div><div class="card-title">周度板块轮动图谱</div></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-day">08-10 周一 · 权重护盘日</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-red">领涨</span>白酒(+3.2%)、有色金属(+2.8%)、军贸/军工、医疗服务、电网设备<br>
+          <span class="tl-tag tag-green">领跌</span>CPO/光模块(-2.1%)、AI手机、保险、通信设备<br>
+          <span style="color:var(--text3);font-size:12px">特征：沪强深弱，白酒有色权重拉升沪指五连阳，科技成长承压。</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-day">08-11 周二 · 防御切换日</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-red">领涨</span>油气开采(+2.5%)、影视院线、医药/CXO、MLCC、减速器<br>
+          <span class="tl-tag tag-green">领跌</span>有色金属(-3.1%)、黄金/贵金属(-2.8%)、军贸/军工、稀土永磁<br>
+          <span style="color:var(--text3);font-size:12px">特征：五连阳终结，前期强势的有色黄金军工大幅回调，油气医药防御品种接棒。</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-day">08-12 周三 · 普涨反弹日</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-red">领涨</span>大消费(+3.5%)、机器人(+2.8%)、CPO/光模块(+2.3%)、房地产、科创半导体<br>
+          <span class="tl-tag tag-green">领跌</span>油气开采(-1.2%)、煤炭、银行<br>
+          <span style="color:var(--text3);font-size:12px">特征：缩量普涨，大消费+机器人双主线确立，科技成长全面反弹，涨停91家封板率89%。</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-day">08-13 周四 · 放量回调日</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-red">领涨</span>医药/CRO(+3.2%)、医疗服务(+2.5%)、智能电网、公用事业<br>
+          <span class="tl-tag tag-green">领跌</span>有色金属(-3.63%)、贵金属/黄金(-3.1%)、工业金属、房地产(-2.1%)、半导体<br>
+          <span style="color:var(--text3);font-size:12px">特征：高开低走尾盘跳水，仅医药逆势领涨，周期股全线崩塌，炸板率骤升至37%。</span>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-day">08-14 周五 · 缩量企稳日</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-red">领涨</span>CPO/光模块(+5.8%)、电子化学品(+4.5%)、稀土永磁(+3.6%)、算力租赁/液冷<br>
+          <span class="tl-tag tag-green">领跌</span>电力(-3.2%)、影视院线(-2.3%)、零售/消费(-2.0%)、公用事业、非银金融<br>
+          <span style="color:var(--text3);font-size:12px">特征：AI算力产业链崛起，中际旭创受让中石科技股权点燃CPO方向，电力防御板块补跌，高位题材股批量退潮。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dual-col" style="margin-top:20px">
+      <div class="col-box up">
+        <h4>本周核心主线</h4>
+        <ul>
+          <li><strong>AI算力产业链</strong>（后半周崛起）：CPO、电子化学品、算力租赁，中际旭创+中芯国际业绩双催化</li>
+          <li><strong>医药/CRO</strong>（周中逆势）：创新药临床进展突破，博济医药等20cm涨停，全周唯一持续抗跌方向</li>
+          <li><strong>大消费</strong>（周三爆发）：白酒、食品饮料、零售，周三领涨但周五分化</li>
+          <li><strong>稀土永磁</strong>（涨价逻辑）：氧化镨钕上半年涨22%，业绩+涨价双击</li>
+        </ul>
+      </div>
+      <div class="col-box down">
+        <h4>本周弱势退潮</h4>
+        <ul>
+          <li><strong>有色金属/贵金属</strong>：周一大涨后连续回调，周四领跌-3.63%，全周波动最剧烈</li>
+          <li><strong>高位题材股</strong>：后半周批量"公告杀"，秦安股份、宝鹰股份、德龙汇能集体跌停</li>
+          <li><strong>电力/公用事业</strong>：前期防御逻辑走强，周五风险偏好修复后补跌</li>
+          <li><strong>房地产</strong>：周三反弹后周四大跌-2.1%，持续性差</li>
+        </ul>
+      </div>
+    </div>
+    <div class="data-source">板块数据基于同花顺、东方财富Choice行业指数整理</div>
+  </div>
+
+  <!-- 5. 周度北向资金 -->
+  <div class="card" id="sec5">
+    <div class="card-header"><div class="card-num">5</div><div class="card-title">周度北向资金动向</div></div>
+    <div class="north-week">
+      <div class="north-day"><div class="nd-label">08-10 周一</div><div class="nd-value flat">≈0亿</div><div class="nd-vol">成交3220亿</div></div>
+      <div class="north-day"><div class="nd-label">08-11 周二</div><div class="nd-value green">-81亿</div><div class="nd-vol">成交2967亿</div></div>
+      <div class="north-day"><div class="nd-label">08-12 周三</div><div class="nd-value red">+25亿</div><div class="nd-vol">成交~2850亿</div></div>
+      <div class="north-day"><div class="nd-label">08-13 周四</div><div class="nd-value flat">活跃</div><div class="nd-vol">成交3148亿</div></div>
+      <div class="north-day"><div class="nd-label">08-14 周五</div><div class="nd-value red">+16亿</div><div class="nd-vol">成交2745亿</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="background:var(--red-light);border-radius:8px;padding:14px">
+        <div style="font-size:12px;color:var(--text2)">周度合计（估算）</div>
+        <div style="font-size:24px;font-weight:800;color:var(--green)">约 -40 亿</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">小幅净流出，周二单日流出为主因</div>
+      </div>
+      <div style="background:var(--bg);border-radius:8px;padding:14px">
+        <div style="font-size:12px;color:var(--text2)">周度总成交</div>
+        <div style="font-size:24px;font-weight:800;color:var(--accent)">约 1.49 万亿</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">占两市总成交约12.7%</div>
+      </div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);margin-top:14px;line-height:1.8">
+      <strong>北向特征：</strong>本周北向资金整体偏谨慎，周二净流出约81亿为全周最大单日流出（日元加息预期升温、外资回流压力），周三周五转为小幅净流入。结构上呈现"深强沪弱"——深股通持续加仓科技成长（CPO、半导体、医药龙头），沪股通在周二大幅流出传统权重。周四成交激增至3148亿，显示外资在放量下跌中积极换手布局。
+    </div>
+  </div>
+
+  <!-- 6. 周度关键事件 -->
+  <div class="card" id="sec6">
+    <div class="card-header"><div class="card-num">6</div><div class="card-title">周度关键事件与催化</div></div>
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-date">08-10 周一</div>
+        <div class="event-text">国际金价创历史新高，带动有色金属、黄金股高开；央行开展3000亿逆回购维护流动性。</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">08-11 周二</div>
+        <div class="event-text">国际油价大涨3%催化油气板块；日元加息预期升温导致北向资金大幅流出；沪指五连阳终结。</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">08-12 周三</div>
+        <div class="event-text">美国7月CPI数据温和，美联储加息预期降温；隔夜美股标普500创新高；A股缩量普涨，大消费+机器人双主线爆发。</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">08-13 周四</div>
+        <div class="event-text">中芯国际Q2营收环比增20%、毛利率提升5.2pct超预期；央行《2026年Q2货币政策执行报告》定调"适度宽松"；但A股高开低走放量跳水，医药CRO逆势领涨。</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">08-14 周五</div>
+        <div class="event-text">中际旭创公告拟17.47亿受让中石科技10.47%股份，点燃CPO及光模块散热方向；央行开展10000亿买断式逆回购；美国7月PPI不及预期；A股缩量企稳，创业板指领涨。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 下周展望 -->
+  <div class="card" id="sec7">
+    <div class="card-header"><div class="card-num">7</div><div class="card-title">下周展望与关注方向</div></div>
+    <div class="outlook-grid">
+      <div class="outlook-item" style="border-left-color:var(--red)">
+        <h5>量能验证</h5>
+        <p>关注成交额能否回升至2.3万亿以上，确认增量资金是否入场。若持续缩量至2万亿以下，指数仍以震荡为主。</p>
+      </div>
+      <div class="outlook-item" style="border-left-color:var(--gold)">
+        <h5>点位突破</h5>
+        <p>沪指3950点（年线附近）为关键压力位，突破则打开上行空间；下方3900点整数关口为强支撑。</p>
+      </div>
+      <div class="outlook-item" style="border-left-color:var(--blue)">
+        <h5>主线延续</h5>
+        <p>AI算力产业链（CPO/电子化学品/算力租赁）能否持续放量是决定结构性机会的关键，关注中报业绩兑现。</p>
+      </div>
+      <div class="outlook-item" style="border-left-color:var(--green)">
+        <h5>风险监控</h5>
+        <p>中报季业绩雷与高位股退潮情绪传导；美联储9月议息会议前的政策预期变化；外部地缘政治扰动。</p>
+      </div>
+      <div class="outlook-item" style="border-left-color:var(--accent)">
+        <h5>情绪修复</h5>
+        <p>涨停家数能否维持60家以上、封板率回到70%+，确认短线情绪从冰点修复的力度。</p>
+      </div>
+      <div class="outlook-item" style="border-left-color:#9b59b6">
+        <h5>政策窗口</h5>
+        <p>央行连续加量买断式逆回购，货币政策宽松定调明确，关注后续是否有降准降息等增量政策落地。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 总结 -->
+  <div class="conclusion">
+    <h3>周度核心结论</h3>
+    <p>2026年第33周（8.10-8.14），A股经历了一轮完整的情绪周期波动。沪指全周微跌0.33%收报3927点，创业板指涨0.83%领涨，周均成交2.34万亿维持高位。周一五连阳冲高后，周二连阳终结，周三缩量普涨，周四放量跳水情绪降至冰点，周五缩量企稳。<br><br>
+    <strong style="color:var(--gold)">板块层面</strong>，AI算力产业链（CPO/电子化学品）在周五异军突起，医药CRO全周逆势抗跌，有色金属周一大涨后连续回调成为波动最大品种，高位题材股后半周批量退潮。<br><br>
+    <strong style="color:var(--gold)">资金层面</strong>，北向资金全周小幅净流出约40亿，周二单日流出81亿为主因，结构上持续偏好深市科技成长。央行连续加量逆回购，货币政策宽松定调为市场提供底部支撑。<br><br>
+    <strong style="color:var(--gold)">下周关键</strong>在于量能能否回升、沪指能否突破3950点年线压力，以及AI算力主线的持续性。市场处于"缩量企稳、结构分化"阶段，存量博弈下精选结构性机会为主。</p>
+  </div>
+
+  <div class="risk-notice">
+    <strong>风险提示：</strong>*本文仅为周度行情复盘参考，不构成任何投资建议。文中涉及板块与个股仅为盘面客观描述，不代表推荐。股市有风险，投资需谨慎。过往表现不预示未来收益，投资者应根据自身风险承受能力独立做出投资决策。
+  </div>
+
+  <div class="footer">
+    A股周度总结 · 2026年8月10日-14日 · 数据来源：同花顺、东方财富Choice、交易所公开数据<br>
+    本页面为纯静态HTML，可离线浏览 · 生成时间：2026年8月17日
+  </div>
+
+</div>
+</body>
+</html>
