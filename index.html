@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股盘中报告 · 日历回看</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#e63946;--red-light:#fff1f0;
+  --green:#00a870;--green-light:#f0fff5;
+  --bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text2:#555;--text3:#999;
+  --border:#e8e8ec;--accent:#1a3a5c;--gold:#d4a017;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,58,92,.97);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.nav-logo{color:#fff;font-weight:700;font-size:15px;letter-spacing:.5px;white-space:nowrap}
+.nav-logo span{color:var(--gold)}
+.nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:4px;background:rgba(255,255,255,.1);transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.2);color:#fff}
+.container{max-width:900px;margin:0 auto;padding:76px 20px 40px}
+.hero{background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:12px;padding:32px 28px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(212,160,23,.12)}
+.hero-badge{display:inline-block;background:var(--gold);color:#1a1a2e;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px}
+.hero-date{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:6px}
+.hero-title{font-size:26px;font-weight:800;margin-bottom:12px;letter-spacing:1px}
+.hero-tagline{font-size:15px;color:rgba(255,255,255,.88);max-width:650px}
+.hero-metrics{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.hero-metric .label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.hero-metric .value{font-size:22px;font-weight:700}
+.red{color:var(--red)}.green{color:var(--green)}.flat{color:var(--text3)}
+.bg-red{background:var(--red-light)}.bg-green{background:var(--green-light)}
+.card{background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:24px 26px;margin-bottom:20px;border:1px solid var(--border)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--bg)}
+.card-num{background:var(--accent);color:#fff;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.card-title{font-size:18px;font-weight:700;color:var(--accent)}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.index-item{border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.index-name{font-size:12px;color:var(--text2);margin-bottom:5px}
+.index-value{font-size:20px;font-weight:700;margin-bottom:3px}
+.index-change{font-size:14px;font-weight:600}
+.index-vol{font-size:11px;color:var(--text3);margin-top:5px}
+.volume-highlight{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#fff8e6,#fff3d6);border-radius:8px;padding:16px 20px;margin-bottom:16px;border-left:4px solid var(--gold)}
+.volume-big{font-size:28px;font-weight:800;color:var(--accent)}
+.volume-label{font-size:12px;color:var(--text2)}
+.volume-change{font-size:14px;font-weight:600}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.info-grid{grid-template-columns:1fr}}
+.info-box{background:var(--bg);border-radius:8px;padding:14px 16px}
+.info-box h4{font-size:13px;color:var(--accent);margin-bottom:8px}
+.info-box p{font-size:13px;color:var(--text2);line-height:1.7}
+.info-box .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;margin-right:4px}
+.tag-red{background:var(--red);color:#fff}.tag-green{background:var(--green);color:#fff}.tag-blue{background:#4a90d9;color:#fff}.tag-gold{background:var(--gold);color:#1a1a2e}
+.dist-bar{display:flex;height:26px;border-radius:5px;overflow:hidden;margin:8px 0}
+.dist-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;min-width:30px}
+.sector-table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.sector-table th{background:var(--bg);padding:8px 10px;text-align:left;font-size:12px;color:var(--text2);font-weight:600;border-bottom:2px solid var(--border)}
+.sector-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px}
+.sector-name{font-weight:600;white-space:nowrap}
+.sector-bar-fill{height:16px;border-radius:3px;display:flex;align-items:center;padding-left:5px;color:#fff;font-size:10px;font-weight:600;min-width:25px}
+.limit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:500px){.limit-grid{grid-template-columns:repeat(2,1fr)}}
+.limit-item{text-align:center;padding:14px 8px;border-radius:8px;border:1px solid var(--border)}
+.limit-num{font-size:24px;font-weight:800;margin-bottom:2px}
+.limit-name{font-size:11px;color:var(--text2)}
+.north-card{border-radius:8px;padding:16px;text-align:center;border:1px solid var(--border);margin-bottom:10px}
+.north-card .n-label{font-size:12px;color:var(--text2);margin-bottom:5px}
+.north-card .n-value{font-size:22px;font-weight:800}
+.north-card .n-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.conclusion{background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:10px;padding:24px 26px;margin-bottom:16px}
+.conclusion h3{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.conclusion p{font-size:14px;line-height:1.8;color:rgba(255,255,255,.92)}
+.risk-notice{background:#fff8e6;border:1px solid #ffe0a3;border-radius:8px;padding:14px 18px;font-size:12px;color:#8a6d00;line-height:1.7}
+.risk-notice strong{color:#b8860b}
+.footer{text-align:center;padding:24px 20px;color:var(--text3);font-size:11px;border-top:1px solid var(--border);margin-top:16px}
+.data-source{font-size:10px;color:var(--text3);margin-top:12px;text-align:right}
+.time-nav{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.time-nav a{flex:1;min-width:80px;text-align:center;padding:8px 6px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600;border:1px solid var(--border);color:var(--text2);background:#fff;transition:all .2s}
+.time-nav a.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.time-nav a:hover:not(.active){background:var(--bg)}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:24px}
+@media(max-width:768px){.cal-grid{grid-template-columns:repeat(2,1fr)}}
+.cal-cell{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .2s;min-height:160px;display:flex;flex-direction:column;justify-content:space-between}
+.cal-cell:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.cal-cell.trading{border-top:3px solid var(--accent)}
+.cal-cell.weekend{background:#fafafa;cursor:default;opacity:.6}
+.cal-date{font-size:14px;font-weight:700;color:var(--accent)}
+.cal-date span{display:block;font-size:10px;color:var(--text3);font-weight:400;margin-top:2px}
+.cal-idx{font-size:18px;font-weight:800;margin-top:8px}
+.cal-chg{font-size:13px;font-weight:600;margin-top:2px}
+.cal-vol{font-size:10px;color:var(--text3);margin-top:4px}
+.cal-links{display:flex;gap:3px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.cal-links a{font-size:10px;padding:3px 6px;border-radius:4px;background:var(--bg);color:var(--text2);text-decoration:none;font-weight:600}
+.cal-links a:hover{background:var(--accent);color:#fff}
+.week-summary{background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:12px;padding:28px;margin-bottom:24px}
+.week-summary h2{font-size:20px;margin-bottom:16px;color:var(--gold)}
+.week-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px}
+.week-stat .ws-label{font-size:11px;color:rgba(255,255,255,.6)}
+.week-stat .ws-value{font-size:20px;font-weight:700;margin-top:2px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--text2);margin-bottom:16px;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">A股盘中报告 <span>|</span> 日历回看</div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span style="color:rgba(255,255,255,.6);font-size:12px">2026年8月第2周</span>
+      <a href="weekly_20260810.html" style="color:#fff;background:var(--gold);padding:5px 14px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:700;color:#1a1a2e">周度总结</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="week-summary">
+    <h2>周度概览 · 2026.08.10 - 08.14</h2>
+    
+    <div class="week-stats">
+      <div class="week-stat"><div class="ws-label">沪指周涨跌</div><div class="ws-value green">-0.33%</div></div>
+      <div class="week-stat"><div class="ws-label">周收盘</div><div class="ws-value">3927.18</div></div>
+      <div class="week-stat"><div class="ws-label">周均成交</div><div class="ws-value" style="color:var(--gold)">2.34万亿</div></div>
+      <div class="week-stat"><div class="ws-label">上涨/下跌天数</div><div class="ws-value"><span style="color:var(--red)">3涨</span> / <span style="color:var(--green)">2跌</span></div></div>
+      <div class="week-stat"><div class="ws-label">周内最高涨停</div><div class="ws-value" style="color:var(--red)">91家</div></div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,.85);line-height:1.8">
+      本周A股呈现<strong style="color:var(--gold)">"先扬后抑、缩量企稳"</strong>格局。周一沪指五连阳冲高3966点，周二五连阳终结回调，周三缩量普涨反弹，周四放量跳水情绪降至冰点，周五缩量企稳创业板领涨。全周成交维持2万亿以上，AI算力产业链（CPO/电子化学品）与医药/CRO成为结构性亮点，有色金属、高位题材股波动剧烈。
+    </p>
+    <div style="margin-top:18px">
+      <a href="weekly_20260810.html" style="display:inline-block;background:var(--gold);color:#1a1a2e;padding:10px 24px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:700;transition:all .2s" onmouseover="this.style.background='#e6b422'" onmouseout="this.style.background='var(--gold)'">
+        📊 查看完整周度总结 →
+      </a>
+    </div>
+  </div>
+  <div class="legend">
+    <span style="color:var(--red)">● 上涨</span>
+    <span style="color:var(--green)">● 下跌</span>
+    <span style="color:var(--text3)">● 休市</span>
+    <span style="margin-left:auto">点击日期卡片查看收盘复盘，点击下方时段链接查看对应报告</span>
+  </div>
+  <div class="cal-grid">
+            <div class="cal-cell trading" onclick="window.location.href='2026-08-10/report_1510.html'">
+              <div class="cal-date">08-10<span>周一</span></div>
+              <div class="cal-idx red">3966.59</div>
+              <div class="cal-chg red">+0.67%</div>
+              <div class="cal-vol">2.52万亿</div>
+              <div class="cal-links">
+                <a href="2026-08-10/report_0930.html">09:30</a>
+                <a href="2026-08-10/report_1000.html">10:00</a>
+                <a href="2026-08-10/report_1430.html">14:30</a>
+                <a href="2026-08-10/report_1510.html">15:10</a>
+              </div>
+            </div>
+            <div class="cal-cell trading" onclick="window.location.href='2026-08-11/report_1510.html'">
+              <div class="cal-date">08-11<span>周二</span></div>
+              <div class="cal-idx green">3934.09</div>
+              <div class="cal-chg green">-0.82%</div>
+              <div class="cal-vol">2.32万亿</div>
+              <div class="cal-links">
+                <a href="2026-08-11/report_0930.html">09:30</a>
+                <a href="2026-08-11/report_1000.html">10:00</a>
+                <a href="2026-08-11/report_1430.html">14:30</a>
+                <a href="2026-08-11/report_1510.html">15:10</a>
+              </div>
+            </div>
+            <div class="cal-cell trading" onclick="window.location.href='2026-08-12/report_1510.html'">
+              <div class="cal-date">08-12<span>周三</span></div>
+              <div class="cal-idx red">3946.68</div>
+              <div class="cal-chg red">+0.32%</div>
+              <div class="cal-vol">2.15万亿</div>
+              <div class="cal-links">
+                <a href="2026-08-12/report_0930.html">09:30</a>
+                <a href="2026-08-12/report_1000.html">10:00</a>
+                <a href="2026-08-12/report_1430.html">14:30</a>
+                <a href="2026-08-12/report_1510.html">15:10</a>
+              </div>
+            </div>
+            <div class="cal-cell trading" onclick="window.location.href='2026-08-13/report_1510.html'">
+              <div class="cal-date">08-13<span>周四</span></div>
+              <div class="cal-idx green">3926.96</div>
+              <div class="cal-chg green">-0.50%</div>
+              <div class="cal-vol">2.55万亿</div>
+              <div class="cal-links">
+                <a href="2026-08-13/report_0930.html">09:30</a>
+                <a href="2026-08-13/report_1000.html">10:00</a>
+                <a href="2026-08-13/report_1430.html">14:30</a>
+                <a href="2026-08-13/report_1510.html">15:10</a>
+              </div>
+            </div>
+            <div class="cal-cell trading" onclick="window.location.href='2026-08-14/report_1510.html'">
+              <div class="cal-date">08-14<span>周五</span></div>
+              <div class="cal-idx red">3927.18</div>
+              <div class="cal-chg red">+0.01%</div>
+              <div class="cal-vol">2.14万亿</div>
+              <div class="cal-links">
+                <a href="2026-08-14/report_0930.html">09:30</a>
+                <a href="2026-08-14/report_1000.html">10:00</a>
+                <a href="2026-08-14/report_1430.html">14:30</a>
+                <a href="2026-08-14/report_1510.html">15:10</a>
+              </div>
+            </div>
+            <div class="cal-cell weekend">
+              <div class="cal-date">08-15<span>周六</span></div>
+              <div class="cal-idx" style="color:#ccc">休市</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div>
+            <div class="cal-cell weekend">
+              <div class="cal-date">08-16<span>周日</span></div>
+              <div class="cal-idx" style="color:#ccc">休市</div>
+              <div class="cal-vol" style="color:#ddd">—</div>
+            </div></div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">i</div><div class="card-title">报告时段说明</div></div>
+    <div class="info-grid">
+      <div class="info-box"><h4>09:30 开盘速报</h4><p>开盘点位、高开低开、隔夜要闻、集合竞价、今日关注方向。</p></div>
+      <div class="info-box"><h4>10:00 早盘速递</h4><p>开盘半小时指数表现、涨跌分布、领涨领跌板块、主力与北向资金动向。</p></div>
+      <div class="info-box"><h4>14:30 午盘观察</h4><p>截至午盘指数与量能、板块轮动、资金流向、午后走势复盘与尾盘展望。</p></div>
+      <div class="info-box"><h4>15:10 收盘复盘</h4><p>完整日复盘：指数概览、情绪温度计、板块轮动、北向资金、主线研判、行情阶段。</p></div>
+    </div>
+  </div>
+  <div class="risk-notice">
+    <strong>风险提示：</strong>*本系统所有报告仅为行情信息整理与复盘参考，不构成任何投资建议。股市有风险，投资需谨慎。
+  </div>
+  <div class="footer">
+    A股盘中报告系统 · 日历回看功能 · 测试周期：2026年8月10日-14日<br>
+    数据来源：同花顺、东方财富Choice、交易所公开数据 · 纯静态HTML，可离线浏览
+  </div>
+</div>
+</body>
+</html>
