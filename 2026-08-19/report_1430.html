@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股午盘观察 | 2026-08-19 周三</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#e63946;--red-light:#fff1f0;
+  --green:#00a870;--green-light:#f0fff5;
+  --bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text2:#555;--text3:#999;
+  --border:#e8e8ec;--accent:#1a3a5c;--gold:#d4a017;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,58,92,.97);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.nav-logo{color:#fff;font-weight:700;font-size:15px;letter-spacing:.5px;white-space:nowrap}
+.nav-logo span{color:var(--gold)}
+.nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:4px;background:rgba(255,255,255,.1);transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.2);color:#fff}
+.container{max-width:900px;margin:0 auto;padding:76px 20px 40px}
+.hero{background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:12px;padding:32px 28px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(212,160,23,.12)}
+.hero-badge{display:inline-block;background:var(--gold);color:#1a1a2e;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px}
+.hero-date{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:6px}
+.hero-title{font-size:26px;font-weight:800;margin-bottom:12px;letter-spacing:1px}
+.hero-tagline{font-size:15px;color:rgba(255,255,255,.88);max-width:650px}
+.hero-metrics{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.hero-metric .label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.hero-metric .value{font-size:22px;font-weight:700}
+.red{color:var(--red)}.green{color:var(--green)}.flat{color:var(--text3)}
+.bg-red{background:var(--red-light)}.bg-green{background:var(--green-light)}
+.card{background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:24px 26px;margin-bottom:20px;border:1px solid var(--border)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--bg)}
+.card-num{background:var(--accent);color:#fff;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.card-title{font-size:18px;font-weight:700;color:var(--accent)}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.index-item{border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.index-name{font-size:12px;color:var(--text2);margin-bottom:5px}
+.index-value{font-size:20px;font-weight:700;margin-bottom:3px}
+.index-change{font-size:14px;font-weight:600}
+.index-vol{font-size:11px;color:var(--text3);margin-top:5px}
+.volume-highlight{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#fff8e6,#fff3d6);border-radius:8px;padding:16px 20px;margin-bottom:16px;border-left:4px solid var(--gold)}
+.volume-big{font-size:28px;font-weight:800;color:var(--accent)}
+.volume-label{font-size:12px;color:var(--text2)}
+.volume-change{font-size:14px;font-weight:600}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.info-grid{grid-template-columns:1fr}}
+.info-box{background:var(--bg);border-radius:8px;padding:14px 16px}
+.info-box h4{font-size:13px;color:var(--accent);margin-bottom:8px}
+.info-box p{font-size:13px;color:var(--text2);line-height:1.7}
+.info-box .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;margin-right:4px}
+.tag-red{background:var(--red);color:#fff}.tag-green{background:var(--green);color:#fff}.tag-blue{background:#4a90d9;color:#fff}.tag-gold{background:var(--gold);color:#1a1a2e}
+.dist-bar{display:flex;height:26px;border-radius:5px;overflow:hidden;margin:8px 0}
+.dist-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;min-width:30px}
+.sector-table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.sector-table th{background:var(--bg);padding:8px 10px;text-align:left;font-size:12px;color:var(--text2);font-weight:600;border-bottom:2px solid var(--border)}
+.sector-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px}
+.sector-name{font-weight:600;white-space:nowrap}
+.sector-bar-fill{height:16px;border-radius:3px;display:flex;align-items:center;padding-left:5px;color:#fff;font-size:10px;font-weight:600;min-width:25px}
+.limit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:500px){.limit-grid{grid-template-columns:repeat(2,1fr)}}
+.limit-item{text-align:center;padding:14px 8px;border-radius:8px;border:1px solid var(--border)}
+.limit-num{font-size:24px;font-weight:800;margin-bottom:2px}
+.limit-name{font-size:11px;color:var(--text2)}
+.north-card{border-radius:8px;padding:16px;text-align:center;border:1px solid var(--border);margin-bottom:10px}
+.north-card .n-label{font-size:12px;color:var(--text2);margin-bottom:5px}
+.north-card .n-value{font-size:22px;font-weight:800}
+.north-card .n-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.conclusion{background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:10px;padding:24px 26px;margin-bottom:16px}
+.conclusion h3{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.conclusion p{font-size:14px;line-height:1.8;color:rgba(255,255,255,.92)}
+.risk-notice{background:#fff8e6;border:1px solid #ffe0a3;border-radius:8px;padding:14px 18px;font-size:12px;color:#8a6d00;line-height:1.7}
+.risk-notice strong{color:#b8860b}
+.footer{text-align:center;padding:24px 20px;color:var(--text3);font-size:11px;border-top:1px solid var(--border);margin-top:16px}
+.data-source{font-size:10px;color:var(--text3);margin-top:12px;text-align:right}
+.time-nav{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.time-nav a{flex:1;min-width:80px;text-align:center;padding:8px 6px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600;border:1px solid var(--border);color:var(--text2);background:#fff;transition:all .2s}
+.time-nav a.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.time-nav a:hover:not(.active){background:var(--bg)}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">A股盘中报告 <span>|</span> 2026-08-19</div>
+    <a href="../index.html" class="nav-back">← 返回日历</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="time-nav"><a href="report_0930.html" class="">09:30</a><a href="report_1000.html" class="">10:00</a><a href="report_1430.html" class="active">14:30</a><a href="report_1510.html" class="">15:10</a></div>
+  <div class="time-nav" style="margin-bottom:16px"><a href="../2026-08-13/report_1430.html" class="" style="flex:0 0 auto;min-width:60px">08-13<br><span style="font-size:10px;font-weight:400">周四</span></a><a href="../2026-08-14/report_1430.html" class="" style="flex:0 0 auto;min-width:60px">08-14<br><span style="font-size:10px;font-weight:400">周五</span></a><a href="../2026-08-17/report_1430.html" class="" style="flex:0 0 auto;min-width:60px">08-17<br><span style="font-size:10px;font-weight:400">周一</span></a><a href="../2026-08-18/report_1430.html" class="" style="flex:0 0 auto;min-width:60px">08-18<br><span style="font-size:10px;font-weight:400">周二</span></a><a href="../2026-08-19/report_1430.html" class="active" style="flex:0 0 auto;min-width:60px">08-19<br><span style="font-size:10px;font-weight:400">周三</span></a></div>
+  <div class="hero">
+    <span class="hero-badge">14:30 午盘观察</span>
+    <div class="hero-date">2026-08-19 周三 · A股盘中实时报告</div>
+    <h1 class="hero-title">午盘观察</h1>
+    <p class="hero-tagline">隔夜美股科技股重挫引发A股高位科技集中兑现，三大指数低开低走、午后跌幅进一步扩大：沪指跌2.52%失守3900点，创业板指重挫逾6%，科创50跌超7%；煤炭、银行、油气等防御方向逆势护盘；截至14:30两市成交约2.19万亿</p>
+    <div class="hero-metrics">
+        <div class="hero-metric"><div class="label">上证指数</div><div class="value green">3889.77</div></div>
+        <div class="hero-metric"><div class="label">累计成交</div><div class="value" style="color:var(--gold)">约2.19万亿</div></div>
+        <div class="hero-metric"><div class="label">跌停家数</div><div class="value green">100家</div></div>
+        </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-num">1</div><div class="card-title">午盘指数表现</div></div>
+    <div class="index-grid">
+      <div class="index-item"><div class="index-name">上证指数</div><div class="index-value green">3889.77</div><div class="index-change green">-2.52%</div><div class="index-vol">成交10633亿</div></div>
+      <div class="index-item"><div class="index-name">深证成指</div><div class="index-value green">13895.33</div><div class="index-change green">-4.97%</div><div class="index-vol">成交11292亿</div></div>
+      <div class="index-item"><div class="index-name">创业板指</div><div class="index-value green">3474.36</div><div class="index-change green">-6.24%</div><div class="index-vol">成交5492亿</div></div>
+      <div class="index-item"><div class="index-name">沪深300</div><div class="index-value green">4579.17</div><div class="index-change green">-3.10%</div><div class="index-vol">成交6099亿</div></div>
+      <div class="index-item"><div class="index-name">科创50</div><div class="index-value green">1662.81</div><div class="index-change green">-7.15%</div><div class="index-vol">成交1156亿</div></div>
+    </div>
+    <div class="volume-highlight">
+      <div><div class="volume-big">约2.19万亿</div><div class="volume-label">截至14:30两市累计成交（沪市10633亿+深市11292亿，Wind分钟线累计）</div></div>
+      <div style="border-left:1px solid #e0d5b8;padding-left:16px"><div class="volume-change green">半日成交约1.62万亿、较上日半日缩量约182亿；昨日全天2.40万亿，午后下跌中量能再度放大</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">2</div><div class="card-title">午盘涨跌与情绪</div></div>
+    <div class="limit-grid">
+      <div class="limit-item bg-red"><div class="limit-num red">38家</div><div class="limit-name">涨停（截至14:30许）</div></div>
+      <div class="limit-item bg-green"><div class="limit-num green">100家</div><div class="limit-name">跌停</div></div>
+      <div class="limit-item" style="background:#fff8e6"><div class="limit-num" style="color:var(--gold)">388家</div><div class="limit-name">上涨（沪深合计）</div></div>
+      <div class="limit-item" style="background:#f0f5ff"><div class="limit-num" style="color:#4a90d9">4863家</div><div class="limit-name">下跌（沪深合计）</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);background:var(--bg);padding:10px 14px;border-radius:6px"><strong>盘面特征：</strong>普跌格局，超九成个股下跌（沪市221涨/2116跌，深市167涨/2747跌）；跌停家数由午间约36家快速增至100家，高位股集体退潮（爱丽家居、一鸣食品、金螳螂等跌停），人形机器人概念重挫（中大力德、巨轮智能等跌停）；涨停端仅煤炭、农业等少数方向维持（京粮控股、金健米业、红四方3连板），情绪明显转弱。</div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">3</div><div class="card-title">午盘板块与资金</div></div>
+    <div class="info-grid">
+      <div class="info-box"><h4>抗跌/领涨方向（Wind行业，截至14:30许）</h4><p><span class="tag tag-red">商业银行+1.52%</span><span class="tag tag-red">海上运输+1.27%</span><span class="tag tag-red">石油天然气+1.23%</span><span class="tag tag-red">保险+0.72%</span><span class="tag tag-red">铁路公路运输+0.52%</span></p><p>防御与低位方向逆势走强：煤炭板块多股涨停（宝泰隆、陕西黑猫、大有能源，焦炭提涨50-55元/吨+7月原煤产量创2021年10月以来新低）；银行拉升（中信银行盘中涨超4%）；油气反复活跃；房地产受公积金新规（装修、物业费纳入提取范围）提振。</p></div>
+      <div class="info-box"><h4>领跌方向</h4><p><span class="tag tag-green">通信设备-8.62%</span><span class="tag tag-green">半导体材料与设备-8.09%</span><span class="tag tag-green">半导体产品-7.94%</span><span class="tag tag-green">电子设备-7.89%</span><span class="tag tag-green">电脑与外围设备-7.82%</span><span class="tag tag-green">建材-5.83%</span></p><p>前期强势的算力硬件、半导体、CPO、存储芯片集体重挫，人形机器人概念大幅下挫；高位抱团科技成为兑现重灾区。</p></div>
+    </div>
+    <div class="info-box" style="border-left:3px solid var(--gold)"><h4>资金动向（Wind主力资金口径）</h4><p>主力净流入仅集中于防御：商业银行+27.8亿、贵金属+17.9亿、家电+7.8亿、海上运输+7.5亿；净流出居前：电子设备-208.1亿、半导体产品-206.7亿、通信设备-119.2亿、机械-79.6亿、电气设备-63.5亿、电脑与外围设备-59.4亿。资金大规模撤离科技成长、涌入银行/黄金等避险方向。（注：北向资金单日净买入自2024年8月起已停止披露）</p></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">4</div><div class="card-title">午后走势与尾盘展望</div></div>
+    <div class="info-grid">
+      <div class="info-box"><h4>午后走势复盘</h4><p>上午三大指数低开低走，午间沪指跌1.96%报3912.17点、创业板指跌4.98%；午后指数未能组织反弹、单边继续下探：沪指13:00后自3908点一路下行，14:30报3889.77点（-2.52%）逼近日内低点；深成指14:30报13895.33点（-4.97%）、收在14:30分钟最低点；创业板指、科创50跌幅分别扩大至6%、7%以上。</p></div>
+      <div class="info-box"><h4>尾盘关注方向</h4><p>①情绪冰点后的修复力度：跌停已扩至100家，关注尾盘是否出现恐慌低点回抽及沪指3850-3880区域承接；②银行、保险、石油等权重护盘能否延续；③量能：截至14:30约2.19万亿，若尾盘放量下挫需警惕恐慌盘集中释放；④隔夜美股科技股表现与外围情绪传导，决定明日修复概率。</p></div>
+    </div>
+  </div>
+
+  <div class="conclusion">
+    <h3>核心结论</h3>
+    <p>隔夜美股科技股重挫引发A股高位科技集中兑现，三大指数低开低走、午后跌幅扩大：截至14:30沪指跌2.52%报3889.77点、深成指跌4.97%、创业板指跌6.24%、科创50跌7.15%；超九成个股下跌，跌停扩至100家，主力资金大举撤离电子、半导体、通信设备，仅银行、煤炭、油气、保险等防御方向逆势走强；截至14:30两市成交约2.19万亿，恐慌情绪明显升温。</p>
+  </div>
+  <div class="risk-notice">
+    <strong>风险提示：</strong>*本文仅为行情信息整理与复盘参考，不构成任何投资建议。文中涉及板块与个股仅为盘面客观描述，不代表推荐。股市有风险，投资需谨慎。
+  </div>
+  <div class="footer">
+    A股盘中报告系统 · 2026-08-19 周三 14:30 午盘观察 · 数据来源：Wind万得、新华财经、东方财富/财联社盘中快讯<br>
+    本页面为纯静态HTML，可离线浏览 · 生成时间：2026年8月19日 14:30许（北京时间）
+  </div>
+</div>
+</body>
+</html>
