@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A股收盘复盘 | 2026-08-19 周三</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#e63946;--red-light:#fff1f0;
+  --green:#00a870;--green-light:#f0fff5;
+  --bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text2:#555;--text3:#999;
+  --border:#e8e8ec;--accent:#1a3a5c;--gold:#d4a017;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(26,58,92,.97);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.nav-logo{color:#fff;font-weight:700;font-size:15px;letter-spacing:.5px;white-space:nowrap}
+.nav-logo span{color:var(--gold)}
+.nav-back{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;padding:6px 14px;border-radius:4px;background:rgba(255,255,255,.1);transition:all .2s}
+.nav-back:hover{background:rgba(255,255,255,.2);color:#fff}
+.container{max-width:900px;margin:0 auto;padding:76px 20px 40px}
+.hero{background:linear-gradient(135deg,#1a3a5c 0%,#2c5f8a 100%);border-radius:12px;padding:32px 28px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(212,160,23,.12)}
+.hero-badge{display:inline-block;background:var(--gold);color:#1a1a2e;font-size:12px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px}
+.hero-date{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:6px}
+.hero-title{font-size:26px;font-weight:800;margin-bottom:12px;letter-spacing:1px}
+.hero-tagline{font-size:15px;color:rgba(255,255,255,.88);max-width:650px}
+.hero-metrics{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.hero-metric .label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.hero-metric .value{font-size:22px;font-weight:700}
+.red{color:var(--red)}.green{color:var(--green)}.flat{color:var(--text3)}
+.bg-red{background:var(--red-light)}.bg-green{background:var(--green-light)}
+.card{background:var(--card);border-radius:10px;box-shadow:var(--shadow);padding:24px 26px;margin-bottom:20px;border:1px solid var(--border)}
+.card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--bg)}
+.card-num{background:var(--accent);color:#fff;width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+.card-title{font-size:18px;font-weight:700;color:var(--accent)}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.index-item{border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.index-name{font-size:12px;color:var(--text2);margin-bottom:5px}
+.index-value{font-size:20px;font-weight:700;margin-bottom:3px}
+.index-change{font-size:14px;font-weight:600}
+.index-vol{font-size:11px;color:var(--text3);margin-top:5px}
+.volume-highlight{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#fff8e6,#fff3d6);border-radius:8px;padding:16px 20px;margin-bottom:16px;border-left:4px solid var(--gold)}
+.volume-big{font-size:28px;font-weight:800;color:var(--accent)}
+.volume-label{font-size:12px;color:var(--text2)}
+.volume-change{font-size:14px;font-weight:600}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+@media(max-width:600px){.info-grid{grid-template-columns:1fr}}
+.info-box{background:var(--bg);border-radius:8px;padding:14px 16px}
+.info-box h4{font-size:13px;color:var(--accent);margin-bottom:8px}
+.info-box p{font-size:13px;color:var(--text2);line-height:1.7}
+.info-box .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;margin-right:4px}
+.tag-red{background:var(--red);color:#fff}.tag-green{background:var(--green);color:#fff}.tag-blue{background:#4a90d9;color:#fff}.tag-gold{background:var(--gold);color:#1a1a2e}
+.dist-bar{display:flex;height:26px;border-radius:5px;overflow:hidden;margin:8px 0}
+.dist-seg{display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;min-width:30px}
+.sector-table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.sector-table th{background:var(--bg);padding:8px 10px;text-align:left;font-size:12px;color:var(--text2);font-weight:600;border-bottom:2px solid var(--border)}
+.sector-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px}
+.sector-name{font-weight:600;white-space:nowrap}
+.sector-bar-fill{height:16px;border-radius:3px;display:flex;align-items:center;padding-left:5px;color:#fff;font-size:10px;font-weight:600;min-width:25px}
+.limit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:500px){.limit-grid{grid-template-columns:repeat(2,1fr)}}
+.limit-item{text-align:center;padding:14px 8px;border-radius:8px;border:1px solid var(--border)}
+.limit-num{font-size:24px;font-weight:800;margin-bottom:2px}
+.limit-name{font-size:11px;color:var(--text2)}
+.north-card{border-radius:8px;padding:16px;text-align:center;border:1px solid var(--border);margin-bottom:10px}
+.north-card .n-label{font-size:12px;color:var(--text2);margin-bottom:5px}
+.north-card .n-value{font-size:22px;font-weight:800}
+.north-card .n-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.conclusion{background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:10px;padding:24px 26px;margin-bottom:16px}
+.conclusion h3{font-size:16px;margin-bottom:10px;color:var(--gold)}
+.conclusion p{font-size:14px;line-height:1.8;color:rgba(255,255,255,.92)}
+.risk-notice{background:#fff8e6;border:1px solid #ffe0a3;border-radius:8px;padding:14px 18px;font-size:12px;color:#8a6d00;line-height:1.7}
+.risk-notice strong{color:#b8860b}
+.footer{text-align:center;padding:24px 20px;color:var(--text3);font-size:11px;border-top:1px solid var(--border);margin-top:16px}
+.data-source{font-size:10px;color:var(--text3);margin-top:12px;text-align:right}
+.time-nav{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.time-nav a{flex:1;min-width:80px;text-align:center;padding:8px 6px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600;border:1px solid var(--border);color:var(--text2);background:#fff;transition:all .2s}
+.time-nav a.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.time-nav a:hover:not(.active){background:var(--bg)}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">A股盘中报告 <span>|</span> 2026-08-19</div>
+    <a href="../index.html" class="nav-back">← 返回日历</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="time-nav"><a href="report_0930.html" class="">09:30</a><a href="report_1000.html" class="">10:00</a><a href="report_1430.html" class="">14:30</a><a href="report_1510.html" class="active">15:10</a></div>
+  <div class="time-nav" style="margin-bottom:16px"><a href="../2026-08-13/report_1510.html" class="" style="flex:0 0 auto;min-width:60px">08-13<br><span style="font-size:10px;font-weight:400">周四</span></a><a href="../2026-08-14/report_1510.html" class="" style="flex:0 0 auto;min-width:60px">08-14<br><span style="font-size:10px;font-weight:400">周五</span></a><a href="../2026-08-17/report_1510.html" class="" style="flex:0 0 auto;min-width:60px">08-17<br><span style="font-size:10px;font-weight:400">周一</span></a><a href="../2026-08-18/report_1510.html" class="" style="flex:0 0 auto;min-width:60px">08-18<br><span style="font-size:10px;font-weight:400">周二</span></a><a href="../2026-08-19/report_1510.html" class="active" style="flex:0 0 auto;min-width:60px">08-19<br><span style="font-size:10px;font-weight:400">周三</span></a></div>
+  <div class="hero">
+    <span class="hero-badge">15:10 收盘复盘</span>
+    <div class="hero-date">2026-08-19 周三 · A股盘中实时报告</div>
+    <h1 class="hero-title">收盘复盘</h1>
+    <p class="hero-tagline">A股放量重挫，沪指跌2.40%收报3894.42点，深成指大跌5.01%，创业板指跌6.26%、科创50跌6.89%；两市成交2.51万亿放量约1100亿，前期高位科技主线（算力/半导体/通信）集体重挫，超4800只个股下跌、跌停114家、涨停仅36家，市场情绪进入冰点期；银行、煤炭、石油、黄金等防御方向逆势护盘，宇树科技上市首日大涨460%分流活跃资金。</p>
+    <div class="hero-metrics">
+        <div class="hero-metric"><div class="label">上证指数</div><div class="value green">3894.42</div></div>
+        <div class="hero-metric"><div class="label">两市成交</div><div class="value" style="color:var(--gold)">2.51万亿</div></div>
+        <div class="hero-metric"><div class="label">涨停/跌停</div><div class="value green">36家 / 114家</div></div>
+        </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="card-num">1</div><div class="card-title">大盘指数概览</div></div>
+    <div class="index-grid">
+      <div class="index-item"><div class="index-name">上证指数</div><div class="index-value green">3894.42</div><div class="index-change green">-2.40%</div><div class="index-vol">成交 12181亿</div></div>
+      <div class="index-item"><div class="index-name">深证成指</div><div class="index-value green">13890.15</div><div class="index-change green">-5.01%</div><div class="index-vol">成交 12929亿</div></div>
+      <div class="index-item"><div class="index-name">创业板指</div><div class="index-value green">3473.49</div><div class="index-change green">-6.26%</div><div class="index-vol">成交 6336亿</div></div>
+      <div class="index-item"><div class="index-name">科创50</div><div class="index-value green">1667.52</div><div class="index-change green">-6.89%</div><div class="index-vol">成交 1325亿</div></div>
+      <div class="index-item"><div class="index-name">沪深300</div><div class="index-value green">4588.70</div><div class="index-change green">-2.90%</div><div class="index-vol">成交 7053亿</div></div>
+    </div>
+    <div class="volume-highlight">
+      <div><div class="volume-big">2.51万亿</div><div class="volume-label">沪深两市合计成交额</div></div>
+      <div style="border-left:1px solid #e0d5b8;padding-left:16px"><div class="volume-change green">较前日2.40万亿放量约1100亿（+4.6%），放量下跌</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);background:var(--bg);padding:10px 14px;border-radius:6px"><strong>全天运行节奏：</strong>三大指数集体低开（沪指-0.96%、深成指-2.08%），沪指9:31见全天高点3961.14后单边震荡下行，午后跌幅持续扩大，14:42探底3879.58，尾收3894.42，几乎收于全天最低点附近；深成指9:42冲高14367.37后一路走低，14:44低见13842.32，收13890.15。尾盘一小时成交占比约20%、明显高于午后前一小时的约16%，下跌末段放量，恐慌盘涌出后指数仅微幅回抽。</div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">2</div><div class="card-title">市场情绪温度计</div></div>
+    <div class="limit-grid">
+      <div class="limit-item bg-red"><div class="limit-num red">36家</div><div class="limit-name">涨停</div></div>
+      <div class="limit-item bg-green"><div class="limit-num green">114家</div><div class="limit-name">跌停</div></div>
+      <div class="limit-item" style="background:#fff8e6"><div class="limit-num" style="color:var(--gold)">12家</div><div class="limit-name">炸板</div></div>
+      <div class="limit-item" style="background:#f0f5ff"><div class="limit-num" style="color:#4a90d9">3连板</div><div class="limit-name">最高连板</div></div>
+    </div>
+    <div class="dist-bar">
+      <div class="dist-seg" style="width:8%;background:var(--red)">涨 429只</div>
+      <div class="dist-seg" style="width:1%;background:#ccc;color:#666">平</div>
+      <div class="dist-seg" style="width:91%;background:var(--green)">跌 4821只</div>
+    </div>
+    <div style="font-size:12px;color:var(--text3);margin-top:6px">上涨 429只 · 下跌 4821只 · 平盘 39只（Wind沪深涨跌家数合计，红盘率仅8%）· 涨停36家、跌停114家、炸板12家、封板率75.0%（连板网收盘定版口径；Wind涨跌停状态口径涨停38家，跌停清单达Wind返回上限100家）· 连板7家，最高3板（金健米业、京粮控股、红四方），2板4家，首板29家 · 昨日涨停今日平均-2.5%，首板晋级率仅6%（近一年均值16.3%）· 昨日3板股全军覆没：旭光电子、正裕工业、桂发祥跌停，中石科技-10.7%</div>
+    <div style="margin-top:10px;text-align:center"><span class="tag tag-green" style="font-size:13px;padding:5px 14px">赚钱效应评级：极弱（冰点期，情绪温度5°）</span></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">3</div><div class="card-title">板块轮动图谱</div></div>
+    <h4 style="font-size:14px;color:var(--red);margin-bottom:8px">领涨板块</h4>
+    <table class="sector-table"><thead><tr><th>板块</th><th>涨幅</th><th>领涨龙头</th></tr></thead><tbody><tr><td class="sector-name">商业银行</td><td><div class="sector-bar-fill" style="width:100%;background:var(--red)">+1.80%</div></td><td style="font-size:11px;color:var(--text3)">农业银行+2.58%，江苏银行创历史新高</td></tr><tr><td class="sector-name">海上运输Ⅲ</td><td><div class="sector-bar-fill" style="width:86%;background:var(--red)">+1.54%</div></td><td style="font-size:11px;color:var(--text3)">南京港涨停、凤凰航运活跃</td></tr><tr><td class="sector-name">石油天然气</td><td><div class="sector-bar-fill" style="width:70%;background:var(--red)">+1.26%</div></td><td style="font-size:11px;color:var(--text3)">美伊暂停谈判、燃油期货涨近6%催化</td></tr><tr><td class="sector-name">保险</td><td><div class="sector-bar-fill" style="width:60%;background:var(--red)">+1.08%</div></td><td style="font-size:11px;color:var(--text3)">大金融防御属性凸显</td></tr><tr><td class="sector-name">煤炭Ⅲ</td><td><div class="sector-bar-fill" style="width:24%;background:var(--red)">+0.43%</div></td><td style="font-size:11px;color:var(--text3)">焦炭价格近90天涨11.40%，宝泰隆、陕西黑猫等5家涨停</td></tr></tbody></table>
+    <h4 style="font-size:14px;color:var(--green);margin:14px 0 8px">领跌板块</h4>
+    <table class="sector-table"><thead><tr><th>板块</th><th>跌幅</th><th>领跌个股</th></tr></thead><tbody><tr><td class="sector-name">通信设备Ⅲ</td><td><div class="sector-bar-fill" style="width:100%;background:var(--green);margin-left:auto;justify-content:flex-end;padding-right:5px;padding-left:0">-8.48%</div></td><td style="font-size:11px;color:var(--text3)">中际旭创-9.36%、新易盛-9%、亨通光电-9.94%</td></tr><tr><td class="sector-name">半导体材料与设备</td><td><div class="sector-bar-fill" style="width:93%;background:var(--green);margin-left:auto;justify-content:flex-end;padding-right:5px;padding-left:0">-7.86%</div></td><td style="font-size:11px;color:var(--text3)">生益科技-10%、中石科技-10.7%</td></tr><tr><td class="sector-name">电子设备、仪器和元件</td><td><div class="sector-bar-fill" style="width:92%;background:var(--green);margin-left:auto;justify-content:flex-end;padding-right:5px;padding-left:0">-7.84%</div></td><td style="font-size:11px;color:var(--text3)">泰晶科技、博迁新材跌停</td></tr><tr><td class="sector-name">电脑与外围设备</td><td><div class="sector-bar-fill" style="width:92%;background:var(--green);margin-left:auto;justify-content:flex-end;padding-right:5px;padding-left:0">-7.77%</div></td><td style="font-size:11px;color:var(--text3)">消费电子高位补跌</td></tr><tr><td class="sector-name">半导体产品</td><td><div class="sector-bar-fill" style="width:89%;background:var(--green);margin-left:auto;justify-content:flex-end;padding-right:5px;padding-left:0">-7.55%</div></td><td style="font-size:11px;color:var(--text3)">兆易创新-7.56%、通富微电-10.01%、胜宏科技-8.92%</td></tr></tbody></table>
+    <div style="font-size:12px;color:var(--text3)">轮动特征：69个Wind行业板块仅8家上涨。资金全面避险，切向银行、保险、煤炭、石油、黄金等防御/红利方向；前期领涨的算力硬件（光模块/CPO/PCB）与半导体产业链高位重挫，获利盘集中兑现，呈现典型的"高位出清、低位防御"格局。</div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">4</div><div class="card-title">资金动向</div></div>
+    <div class="north-card" style="background:var(--green-light)"><div class="n-label">主力资金（Wind/连板网口径）</div><div class="n-value green">全面流出科技权重</div><div class="n-sub">Wind行业净流入居前：黄金、区域性银行、家用电器、多元化银行、农产品、海运；净流出居前：消费电子产品、生物科技、汽车制造。个股层面：中际旭创主力净流出56.23亿、兆易创新47.96亿、新易盛29.41亿、亨通光电22.75亿、生益科技20.78亿；净流入居前：N宇树-W（上市首日+460.34%，主力净流入21.95亿）、金风科技、斯达半导、山东黄金、农业银行</div></div>
+    <div class="info-grid">
+      <div class="info-box"><h4>量能</h4><p>两市成交2.51万亿，较前日2.40万亿放量约1100亿（+4.6%），属放量下跌。时段分布：早盘前30分钟约33%-34%、上午后半段约31%-32%、午后前一小时约16%、尾盘一小时约20%，下跌末段量能明显放大，恐慌盘集中涌出。</p></div>
+      <div class="info-box"><h4>北向资金说明</h4><p>沪深股通单日净买入/净卖出数据自2024年8月起已停止对外披露，无法提供当日北向净流入数据。</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">5</div><div class="card-title">主线与强弱研判</div></div>
+    <div class="info-box" style="margin-bottom:10px;border-left:3px solid var(--red)"><h4><span class="tag tag-red">核心主线</span></h4><p>防御避险方向逆势走强：银行（农业银行+2.58%、江苏银行创历史新高）、煤炭（焦炭涨价，宝泰隆等5家涨停）、石油天然气（美伊暂停谈判、燃油涨近6%）、黄金（山东黄金+6.5%）</p></div>
+    <div class="info-box" style="margin-bottom:10px;border-left:3px solid #4a90d9"><h4><span class="tag tag-blue">活跃支线</span></h4><p>农业延续（总龙头金健米业3连板，京粮控股、红四方3连板）、房地产（7月一线城市房价环比上涨，深华发A 2连板、我爱我家、南都物业）、医药（1-7月创新药BD交易1063亿美元，西点药业4天2板）、商业航天（鲁信创投等3家涨停）</p></div>
+    <div class="info-box" style="border-left:3px solid var(--green)"><h4><span class="tag tag-green">弱势退潮</span></h4><p>算力硬件/光模块（中际旭创、新易盛、亨通光电逼近跌停）、半导体产业链（兆易创新、通富微电、生益科技、胜宏科技）、昨日3板以上高位股（旭光电子、正裕工业、桂发祥跌停）、机器人高位股（柯力传感、鸣志电器、浙江荣泰跌停）</p></div>
+    <div style="margin-top:12px;text-align:center"><span class="tag tag-gold" style="font-size:13px;padding:5px 14px">行情阶段：放量重挫·避险防御·高位出清</span></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">6</div><div class="card-title">行情阶段客观解读</div></div>
+    <div class="info-grid">
+      <div class="info-box"><h4>技术形态与量价</h4><p>沪指收放量长阴线，一日回吐前两日涨幅并击穿3920一线，收3894.42，几乎收于全天最低点，短线关注3879（今日低点）与3850一带支撑；创业板指单日-6.26%、科创50 -6.89%收出破位长阴，前期上升趋势遭到破坏。放量下跌显示抛压真实释放，尾盘小幅回抽力度有限。</p></div>
+      <div class="info-box"><h4>情绪周期</h4><p>情绪由退潮期直接坠入冰点期（温度5°）：涨停36家 vs 跌停114家，首板晋级率仅6%，昨日3板股全部跌停，红盘率仅8%。高位连板生态彻底瓦解，亏钱效应剧烈；冰点之后历史上常有技术性修复，但修复力度取决于量能与主线重建。</p></div>
+    </div>
+    <div class="info-box" style="border-left:3px solid var(--accent)"><h4>核心驱动与短期推演</h4><p>本轮重挫是前期科技主线涨幅巨大后获利盘集中兑现、中报业绩利空释放（舍得酒业上半年净利-67%等，新华财经快讯显示半年报密集披露中）、高位连板生态瓦解三者共振；宇树科技上市首日大涨460%亦分流活跃资金，加剧题材股失血。短期看：若明日在3879-3850区间缩量企稳、跌停家数显著收敛，则有望进入修复期，防御的银行/煤炭/黄金可作为情绪稳定器观察；若放量跌破3850，调整级别将扩大。关注今晚外围市场与明日农业/煤炭主线持续性。</p></div>
+  </div>
+
+  <div class="conclusion">
+    <h3>核心结论</h3>
+    <p>A股放量重挫，沪指跌2.40%收报3894.42点，深成指大跌5.01%，创业板指跌6.26%、科创50跌6.89%；两市成交2.51万亿放量约1100亿，前期高位科技主线（算力/半导体/通信）集体重挫，超4800只个股下跌、跌停114家、涨停仅36家，市场情绪进入冰点期；银行、煤炭、石油、黄金等防御方向逆势护盘，宇树科技上市首日大涨460%分流活跃资金。</p>
+  </div>
+  <div class="risk-notice">
+    <strong>风险提示：</strong>*本文仅为行情信息整理与复盘参考，不构成任何投资建议。文中涉及板块与个股仅为盘面客观描述，不代表推荐。股市有风险，投资需谨慎。
+  </div>
+  <div class="footer">
+    A股盘中报告系统 · 2026-08-19 周三 15:10 收盘复盘 · 数据来源：Wind万得、连板网、新华财经、交易所公开数据（数据截至15:00收盘）<br>
+    本页面为纯静态HTML，可离线浏览 · 生成时间：2026年8月19日
+  </div>
+</div>
+</body>
+</html>
